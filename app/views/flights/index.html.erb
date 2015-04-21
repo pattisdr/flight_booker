@@ -1,0 +1,29 @@
+<h1> DawnAir </h1>
+
+<%= form_tag('/flights', method: 'get') do %>
+
+  <%= select_tag :from, options_for_select(@airport_options), prompt: "FROM" %>
+  <%= select_tag :to, options_for_select(@airport_options), prompt: "TO" %>
+  <%= select_tag :date, options_for_select(@dates), prompt: "Date" %>
+   <%= select_tag :passengers, options_for_select([1,2,3,4]), prompt: "Passengers" %>
+   <%= submit_tag("Search flights") %>
+   
+<% end %>
+
+<br>
+
+<% unless @flights.nil? %>
+
+<%= form_tag(new_booking_path, method: 'get') do %>
+  <%= hidden_field_tag(:passengers, params[:passengers]) %>
+  <table cellspacing="15">
+    <tr> <td> Select </td> <td> Cost </td> <td> From </td> <td> To </td> <td> Date </td> <td> Departing </td> <td> Duration </td></tr>
+    <% @flights.each do |flight| %>
+       <tr> <td> <%= radio_button_tag(:select_flight, flight.id) %> </td> <td> $<%= flight.cost %> </td> <td> <%= flight.departing_airport.code  %></td> <td> <%= flight.arriving_airport.code %> </td> <td> <%= flight.departing_datetime.to_date %> </td> <td> <%= flight.departing_datetime.strftime("%I:%M%p") %> </td> <td> <%= flight.duration %> hrs</td></tr>
+    <% end %>
+  </table>
+  <%= submit_tag("Enter passenger information") %>
+<% end %>
+
+<% end %>
+

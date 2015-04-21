@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  departing_datetime: MyString
+  datetime: MyString
+  departing_airport_id: 1
+  arriving_airport_id: 1
+  duration: 1
+  cost: 9.99
+
+two:
+  departing_datetime: MyString
+  datetime: MyString
+  departing_airport_id: 1
+  arriving_airport_id: 1
+  duration: 1
+  cost: 9.99
