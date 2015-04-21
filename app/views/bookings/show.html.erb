@@ -1,6 +1,12 @@
 <h1> Confirmation </h1>
+<%= link_to "Home", root_path %>
 
 <h2> <%= @booking.flight.departing_airport.code %>  ----> <%=  @booking.flight.arriving_airport.code %> </h2>
 <h3> <%= @booking.flight.departing_datetime %> </h3>
 
-<h2> <%= @booking.passengers.name %> <h2>
+<h2><%= pluralize(@booking.passengers.count, "Passenger") %> </h2>
+<% @booking.passengers.each do |passenger| %> 
+  <p><strong><%= passenger.name %></strong>: <i><%= passenger.email %> </i></p>
+<% end %>
+
+
