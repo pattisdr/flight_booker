@@ -7,18 +7,20 @@ class BookingsController < ApplicationController
   
   def create
     @booking = Booking.new(booking_params)
-    if @booking.save
-      flash[:success] = "Flight booked"
-      render 'show'
-    else
-      flash.now[:error] = "Error booking"
-      render 'new'
+      if @booking.save
+        @booking.passengers.each { |passenger| PassengerMailer.welcome_email(passenger).deliver_now }
+   
+        flash[:success] = "Flight booked"
+        redirect_to @booking
+       
+      else
+        flash.now[:error] = "Error booking"
+        render 'new'
     end    
   end
   
   def show
-    @booking = Booking.find(params[:booking_id])
-  
+    @booking = Booking.find(params[:id]) 
   end
   
   
